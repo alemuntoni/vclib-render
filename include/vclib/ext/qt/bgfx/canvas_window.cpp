@@ -55,7 +55,11 @@ void CanvasWindow::draw() {}
 
 void CanvasWindow::onResize(unsigned int w, unsigned int h) {}
 
-void CanvasWindow::update() { QWidget::update(); }
+void CanvasWindow::update()
+{
+    QWidget::repaint();
+    QWidget::update();
+}
 
 bool CanvasWindow::event(QEvent* event)
 {
