@@ -24,19 +24,19 @@
 #define VCL_EXT_QT_BGFX_CANVAS_WINDOW_H
 
 #include <QApplication>
-#include <QWindow>
+#include <QWidget>
 
 #include <vclib/ext/bgfx/canvas.h>
 
 namespace vcl::qbgf {
 
-class CanvasWindow : public QWindow, vcl::bgf::Canvas
+class CanvasWindow : public QWidget, vcl::bgf::Canvas
 {
     Q_OBJECT
 public:
     explicit CanvasWindow(
         bgfx::RendererType::Enum renderType = bgfx::RendererType::Count,
-        QWindow *parent = nullptr);
+        QWidget *parent = nullptr);
 
     virtual ~CanvasWindow();
 

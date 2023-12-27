@@ -24,7 +24,7 @@
 
 namespace vcl::qbgf {
 
-Viewer::Viewer(bgfx::RendererType::Enum renderType, QWindow* parent):
+Viewer::Viewer(bgfx::RendererType::Enum renderType, QWidget* parent):
     CanvasWindow(renderType, parent)
 {
     DTB::resetTrackBall(1);

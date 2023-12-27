@@ -43,7 +43,7 @@ protected:
 public:
     Viewer(
         bgfx::RendererType::Enum renderType = bgfx::RendererType::Count,
-        QWindow*                 parent     = nullptr);
+        QWidget*                 parent     = nullptr);
 
     virtual ~Viewer() {};
 

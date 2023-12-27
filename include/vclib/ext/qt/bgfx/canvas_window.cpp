@@ -24,7 +24,7 @@
 
 namespace vcl::qbgf {
 
-CanvasWindow::CanvasWindow(bgfx::RendererType::Enum renderType, QWindow* parent) : QWindow(parent)
+CanvasWindow::CanvasWindow(bgfx::RendererType::Enum renderType, QWidget* parent) : QWidget(parent)
 {
     setGeometry(100, 100, 1024, 768);
 
@@ -55,7 +55,7 @@ void CanvasWindow::draw() {}
 
 void CanvasWindow::onResize(unsigned int w, unsigned int h) {}
 
-void CanvasWindow::update() { QWindow::requestUpdate(); }
+void CanvasWindow::update() { QWidget::update(); }
 
 bool CanvasWindow::event(QEvent* event)
 {
@@ -63,19 +63,19 @@ bool CanvasWindow::event(QEvent* event)
         paint();
         return true;
     }
-    return QWindow::event(event);
+    return QWidget::event(event);
 }
 
 void CanvasWindow::paintEvent(QPaintEvent* event)
 {
     paint();
-    QWindow::paintEvent(event);
+    QWidget::paintEvent(event);
 }
 
 void CanvasWindow::resizeEvent(QResizeEvent* event)
 {
     vcl::bgf::Canvas::resize(width(), height());
-    QWindow::resizeEvent(event);
+    QWidget::resizeEvent(event);
     onResize(width(), height());
 }
 
