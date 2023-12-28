@@ -33,10 +33,11 @@ namespace vcl::qbgf {
 class CanvasWindow : public QWidget, vcl::bgf::Canvas
 {
     Q_OBJECT
+
 public:
     explicit CanvasWindow(
         bgfx::RendererType::Enum renderType = bgfx::RendererType::Count,
-        QWidget *parent = nullptr);
+        QWidget* parent                     = nullptr);
 
     virtual ~CanvasWindow();
 
