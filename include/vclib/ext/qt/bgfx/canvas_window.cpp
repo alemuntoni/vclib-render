@@ -22,6 +22,8 @@
 
 #include "canvas_window.h"
 
+#include <QPainter>
+
 namespace vcl::qbgf {
 
 CanvasWindow::CanvasWindow(bgfx::RendererType::Enum renderType, QWidget* parent) : QWidget(parent)
@@ -53,7 +55,9 @@ CanvasWindow::~CanvasWindow() {}
 
 void CanvasWindow::draw() {}
 
-void CanvasWindow::onResize(unsigned int w, unsigned int h) {}
+void CanvasWindow::onResize(unsigned int, unsigned int)
+{
+}
 
 void CanvasWindow::update()
 {
@@ -61,18 +65,13 @@ void CanvasWindow::update()
     QWidget::update();
 }
 
-bool CanvasWindow::event(QEvent* event)
-{
-    if (event->type() == QEvent::UpdateRequest) {
-        paint();
-        return true;
-    }
-    return QWidget::event(event);
-}
-
 void CanvasWindow::paintEvent(QPaintEvent* event)
 {
     paint();
+    // QLineF line(10.0, 80.0, 90.0, 20.0);
+
+    // QPainter painter(this);
+    // painter.drawLine(line);
     QWidget::paintEvent(event);
 }
 
