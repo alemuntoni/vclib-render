@@ -25,8 +25,6 @@
 
 #include <vclib/render/camera.h>
 
-#include <bgfx/bgfx.h>
-
 #include "shader_uniform.h"
 
 namespace vcl::bgf {

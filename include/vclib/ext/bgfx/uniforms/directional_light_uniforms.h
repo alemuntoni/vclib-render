@@ -25,8 +25,6 @@
 
 #include <vclib/render/lights/directional_light.h>
 
-#include <bgfx/bgfx.h>
-
 #include "shader_uniform.h"
 
 namespace vcl::bgf {

@@ -20,59 +20,23 @@
  * for more details.                                                         *
  ****************************************************************************/
 
-#ifndef VCL_EXT_BGFX_UNIFORMS_MESH_RENDER_SETTINGS_UNIFORMS_H
-#define VCL_EXT_BGFX_UNIFORMS_MESH_RENDER_SETTINGS_UNIFORMS_H
+#ifndef VCL_EXT_BGFX_UNIFORMS_COMMON_H
+#define VCL_EXT_BGFX_UNIFORMS_COMMON_H
 
-#include <vclib/render/mesh_render_settings.h>
-
-#include "common.h"
-#include "shader_uniform.h"
+#include <vclib/types/base.h>
 
 namespace vcl::bgf {
 
-class MeshRenderSettingsUniforms
+inline float uintBitsToFloat(uint value)
 {
-    // drawPack[0] -> primitive used
-    // drawPack[1] -> draw mode
-    // drawPack[1] -> point width
-    float drawPack[4] = {0.0, 0.0, 0.0, 0.0};
-
-    // colorPack[0] -> point user color
-    // colorPack[1] -> surface user color
-    // colorPack[2] -> wireframe user color
-    float colorPack[4] = {0.0, 0.0, 0.0, 0.0};
-
-    ShaderUniform drawModeUniform =
-        ShaderUniform("u_mrsDrawPack", bgfx::UniformType::Vec4);
-
-    ShaderUniform colorUniform =
-        ShaderUniform("u_mrsColorPack", bgfx::UniformType::Vec4);
-
-public:
-    MeshRenderSettingsUniforms() {}
-
-    void updatePrimitive(uint primitive)
-    {
-        drawPack[0] = uintBitsToFloat(primitive);
-    }
-
-    void updateSettings(const vcl::MeshRenderSettings& settings)
-    {
-        drawPack[1] = uintBitsToFloat(settings.drawMode());
-        drawPack[2] = settings.pointWidth();
-
-        colorPack[0] = uintBitsToFloat(settings.pointCloudUserColor().abgr());
-        colorPack[1] = uintBitsToFloat(settings.surfaceUserColor().abgr());
-        colorPack[2] = uintBitsToFloat(settings.wireframeUserColor().abgr());
-    }
-
-    void bind() const
-    {
-        drawModeUniform.bind(drawPack);
-        colorUniform.bind(colorPack);
-    }
-};
+    union {
+        float f;
+        uint u;
+    } u;
+    u.u = value;
+    return u.f;
+}
 
 } // namespace vcl::bgf
 
-#endif // VCL_EXT_BGFX_UNIFORMS_MESH_RENDER_SETTINGS_UNIFORMS_H
+#endif // VCL_EXT_BGFX_UNIFORMS_COMMON_H
