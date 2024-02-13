@@ -26,7 +26,7 @@
 #include <bgfx/bgfx.h>
 
 #include <vclib/meshes/tri_mesh.h>
-#include <vclib/render/drawable_object.h>
+#include <vclib/render/interfaces/drawable_object_i.h>
 #include <vclib/space/matrix.h>
 
 #include "mesh_render_buffers.h"
@@ -35,7 +35,7 @@
 
 namespace vcl::bgf {
 
-class DrawableAxis : public DrawableObject
+class DrawableAxis : public DrawableObjectI
 {
     bool visible = false;
 
@@ -70,13 +70,13 @@ public:
 
     // DrawableObject interface
 
-    void draw(uint viewID) override;
+    void draw(uint viewId) override;
 
     Point3d center() const override { return Point3d(); };
 
     double radius() const override { return 1.0; }
-
-    DrawableObject* clone() const override { return new DrawableAxis(*this); }
+    
+    DrawableObjectI* clone() const override { return new DrawableAxis(*this); }
 
     bool isVisible() const override { return visible; }
 

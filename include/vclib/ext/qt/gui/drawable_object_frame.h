@@ -25,7 +25,7 @@
 
 #include <QFrame>
 
-#include <vclib/render/drawable_object.h>
+#include <vclib/render/interfaces/drawable_object_i.h>
 
 namespace vcl::qt {
 
@@ -39,7 +39,7 @@ class DrawableObjectFrame : public QFrame
 
 public:
     explicit DrawableObjectFrame(
-        DrawableObject* obj,
+        DrawableObjectI* obj,
         QWidget*        parent = nullptr);
     ~DrawableObjectFrame();
 
@@ -51,7 +51,7 @@ private slots:
 
 private:
     Ui::DrawableObjectFrame* ui;
-    DrawableObject*          obj;
+    DrawableObjectI*          obj;
 };
 
 } // namespace vcl::qt

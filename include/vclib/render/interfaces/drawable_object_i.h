@@ -20,10 +20,12 @@
  * for more details.                                                         *
  ****************************************************************************/
 
-#ifndef VCL_RENDER_DRAWABLE_OBJECT_H
-#define VCL_RENDER_DRAWABLE_OBJECT_H
+#ifndef VCL_RENDER_INTERFACES_DRAWABLE_OBJECT_I_H
+#define VCL_RENDER_INTERFACES_DRAWABLE_OBJECT_I_H
 
 #include <vclib/space/point.h>
+
+#include "shader_program_i.h"
 
 namespace vcl {
 
@@ -36,7 +38,7 @@ namespace vcl {
  *
  * A class that inherits from DrawableObject must implement the following member
  * functions:
- * - draw(uint viewID);
+ * - draw(uint viewId);
  * - center();
  * - radius();
  * - clone();
@@ -50,15 +52,15 @@ namespace vcl {
  * For more details about these member functions, check the documentation of
  * each one.
  */
-class DrawableObject
+class DrawableObjectI
 {
     std::string n; /**< @brief Name of the object */
 
 public:
     /**< @brief Empty constructor */
-    DrawableObject() = default;
+    DrawableObjectI() = default;
 
-    virtual ~DrawableObject() {}
+    virtual ~DrawableObjectI() {}
 
     /**
      * @brief This member function is called after the initialization of the
@@ -67,14 +69,16 @@ public:
      */
     virtual void init() {};
 
+    virtual void setShaderProgram(const ShaderProgramI&) {}
+
     /**
      * @brief This member function must draw the object.
      * It will be called at every frame.
      *
-     * @param viewID The ID of the view to draw. It may be used depending on the
+     * @param viewId The ID of the view to draw. It may be used depending on the
      * rendering engine.
      */
-    virtual void draw(uint viewID = 0) = 0;
+    virtual void draw(uint viewId = 0) = 0;
 
     /**
      * @brief This member function is used to find a good camera position
@@ -96,18 +100,18 @@ public:
 
     /**
      * @brief This member function is used to create a new copy of the
-     * DrawableObject. Each derived class must implement this member function,
-     * that returns a new dynamically allocated DrawableObject that is a copy of
+     * DrawableObjectI. Each derived class must implement this member function,
+     * that returns a new dynamically allocated DrawableObjectI that is a copy of
      * the current one. for more details about this paradigm, check polimorphism
      * clone in modern c++:
      * https://www.fluentcpp.com/2017/09/08/make-polymorphic-copy-modern-cpp/
      *
-     * @return A new dynamically allocated DrawableObject that is a copy of the
+     * @return A new dynamically allocated DrawableObjectI that is a copy of the
      * current one.
      */
     [[nodiscard(
         "You should assign and manage the pointer to the newly created "
-        "object")]] virtual DrawableObject*
+        "object")]] virtual DrawableObjectI*
     clone() const = 0;
 
     /**
@@ -134,11 +138,8 @@ public:
      * @param[in] name: The name of the object.
      */
     std::string& name() { return n; }
-
-protected:
-    void swap(DrawableObject& other) noexcept { std::swap(n, other.n); }
 };
 
 } // namespace vcl
 
-#endif // VCL_RENDER_DRAWABLE_OBJECT_H
+#endif // VCL_RENDER_INTERFACES_DRAWABLE_OBJECT_I_H

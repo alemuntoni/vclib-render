@@ -42,7 +42,7 @@ MinimalViewerWidget::MinimalViewerWidget(
 
 void MinimalViewerWidget::init()
 {
-    for (DrawableObject* d : *drawList) {
+    for (DrawableObjectI* d : *drawList) {
         d->init();
     }
 }
@@ -73,7 +73,7 @@ void MinimalViewerWidget::fitScene()
 
 void MinimalViewerWidget::draw()
 {
-    for (DrawableObject* obj : *drawList)
+    for (DrawableObjectI* obj : *drawList)
         obj->draw(0);
 }
 
