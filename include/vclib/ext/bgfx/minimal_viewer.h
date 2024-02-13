@@ -29,9 +29,11 @@
 #include "drawable_axis.h"
 #include "shader_programs/drawable_axis_shader_program.h"
 #include "shader_programs/drawable_mesh_shader_program.h"
+#include "shader_programs/picking_shader_program.h"
 #include "uniforms/camera_uniforms.h"
 #include "uniforms/directional_light_uniforms.h"
 #include "uniforms/mesh_render_settings_uniforms.h"
+#include "uniforms/pick_object_id_uniforms.h"
 
 namespace vcl::bgf {
 
@@ -44,10 +46,22 @@ class MinimalViewer : public vcl::DesktopTrackBall<float>
     CameraUniforms             cameraUniforms;
     DirectionalLightUniforms   directionalLightUniforms;
     MeshRenderSettingsUniforms meshRenderSettingsUniforms;
+    PickObjectIdUniforms       pickObjectIdUniforms;
 
     // the programs must be created after the uniforms - bgfx issue on OpenGL
     vcl::bgf::DrawableMeshShaderProgram meshProgram;
     vcl::bgf::DrawableAxisShaderProgram axisProgram;
+    vcl::bgf::PickingShaderProgram pickingProgram;
+
+    // id textures for picking
+    bgfx::TextureHandle pickingRT;
+    bgfx::TextureHandle pickingRTDepth;
+
+    // frame buffer for picking
+    bgfx::FrameBufferHandle pickingFB;
+
+    // blit texture for picking
+    bgfx::TextureHandle blitTex;
 
 protected:
     using DTB = vcl::DesktopTrackBall<float>;
@@ -60,6 +74,8 @@ public:
         uint                                  width  = 1024,
         uint                                  height = 768);
 
+    ~MinimalViewer();
+
     std::shared_ptr<const DrawableObjectVector> drawableObjectVector() const;
 
     void setDrawableObjectVector(std::shared_ptr<DrawableObjectVector> v);
@@ -71,6 +87,11 @@ public:
     void toggleAxisVisibility() { axis.setVisibility(!axis.isVisible()); }
 
     void keyPress(Key::Enum key);
+
+    uint pick(int x, int y);
+
+private:
+    void setPickViewTransform(bgfx::ViewId id, int x, int y);
 };
 
 } // namespace vcl::bgf

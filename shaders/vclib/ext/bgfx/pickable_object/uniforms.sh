@@ -20,22 +20,11 @@
  * for more details.                                                         *
  ****************************************************************************/
 
-#ifndef VCL_RENDER_INTERFACES_PICKABLE_OBJECT_I_H
-#define VCL_RENDER_INTERFACES_PICKABLE_OBJECT_I_H
+#ifndef VCL_EXT_BGFX_DRAWABLE_MESH_UNIFORMS_SH
+#define VCL_EXT_BGFX_DRAWABLE_MESH_UNIFORMS_SH
 
-#include "drawable_object_i.h"
-#include "picking_shader_program_i.h"
+#include <shaders_common.sh>
 
-namespace vcl {
+#include <uniforms/pick_object_id_uniforms.sh>
 
-class PickableObjectI : public DrawableObjectI
-{
-public:
-    virtual void setPickingShaderPorgram(const PickingShaderProgramI& ) {};
-
-    virtual void drawWithNames(uint viewId = 0) = 0;
-};
-
-} // namespace vcl
-
-#endif // VCL_RENDER_INTERFACES_PICKABLE_OBJECT_I_H
+#endif // VCL_EXT_BGFX_DRAWABLE_MESH_UNIFORMS_SH

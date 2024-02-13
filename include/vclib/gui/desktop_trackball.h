@@ -45,17 +45,17 @@ public:
 private:
     using MotionType = vcl::TrackBall<Scalar>::MotionType;
 
-    uint width  = 1024;
-    uint height = 768;
+    uint widthSize  = 1024;
+    uint heightSize = 768;
 
-    Scalar fov    = 60.0;
-    Scalar aspect = 1.0;
-    Scalar near   = 0.1;
-    Scalar far    = 500.0;
+    Scalar fieldOfView = 60.0;
+    Scalar aspect      = 1.0;
+    Scalar near        = 0.1;
+    Scalar far         = 500.0;
 
     vcl::Matrix44<Scalar> projMatrix =
         vcl::projectionMatrix<vcl::Matrix44<Scalar>>(
-            fov,
+            fieldOfView,
             aspect,
             near,
             far,
@@ -153,6 +153,18 @@ public:
 
     const Matrix44<Scalar>& projectionMatrix() const { return projMatrix; }
 
+    uint width() const { return widthSize; }
+
+    uint height() const { return heightSize; }
+
+    Scalar fov() const { return fieldOfView; }
+
+    Scalar aspectRatio() const { return aspect; }
+
+    Scalar nearPlane() const { return near; }
+
+    Scalar farPlane() const { return far; }
+
     void resetTrackBall()
     {
         trackball.reset(defaultTrackBallCenter, defaultTrackBallRadius);
@@ -168,8 +180,8 @@ public:
 
     void resizeViewer(uint w, uint h)
     {
-        width  = w;
-        height = h;
+        widthSize  = w;
+        heightSize = h;
         trackball.setScreenSize(w, h);
         aspect = static_cast<Scalar>(w) / static_cast<Scalar>(h);
         updateProjMatrix();
@@ -222,7 +234,7 @@ public:
 
     void setFov(Scalar fov)
     {
-        this->fov = fov;
+        this->fieldOfView = fov;
         updateProjMatrix();
     }
 
@@ -248,7 +260,7 @@ private:
     void updateProjMatrix()
     {
         projMatrix = vcl::projectionMatrix<vcl::Matrix44<Scalar>>(
-            fov, aspect, near, far, false);
+            fieldOfView, aspect, near, far, false);
     }
 };
 

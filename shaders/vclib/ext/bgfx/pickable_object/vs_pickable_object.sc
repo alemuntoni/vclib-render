@@ -20,22 +20,11 @@
  * for more details.                                                         *
  ****************************************************************************/
 
-#ifndef VCL_RENDER_INTERFACES_PICKABLE_OBJECT_I_H
-#define VCL_RENDER_INTERFACES_PICKABLE_OBJECT_I_H
+$input a_position
 
-#include "drawable_object_i.h"
-#include "picking_shader_program_i.h"
+#include <pickable_object/uniforms.sh>
 
-namespace vcl {
-
-class PickableObjectI : public DrawableObjectI
+void main()
 {
-public:
-    virtual void setPickingShaderPorgram(const PickingShaderProgramI& ) {};
-
-    virtual void drawWithNames(uint viewId = 0) = 0;
-};
-
-} // namespace vcl
-
-#endif // VCL_RENDER_INTERFACES_PICKABLE_OBJECT_I_H
+    gl_Position = mul(u_modelViewProj, vec4(a_position, 1.0));
+}

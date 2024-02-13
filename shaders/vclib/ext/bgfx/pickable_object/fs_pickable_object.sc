@@ -20,22 +20,10 @@
  * for more details.                                                         *
  ****************************************************************************/
 
-#ifndef VCL_RENDER_INTERFACES_PICKABLE_OBJECT_I_H
-#define VCL_RENDER_INTERFACES_PICKABLE_OBJECT_I_H
+#include <bgfx_shader.sh>
+#include <pickable_objects/uniforms.sh>
 
-#include "drawable_object_i.h"
-#include "picking_shader_program_i.h"
-
-namespace vcl {
-
-class PickableObjectI : public DrawableObjectI
+void main()
 {
-public:
-    virtual void setPickingShaderPorgram(const PickingShaderProgramI& ) {};
-
-    virtual void drawWithNames(uint viewId = 0) = 0;
-};
-
-} // namespace vcl
-
-#endif // VCL_RENDER_INTERFACES_PICKABLE_OBJECT_I_H
+    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+}

@@ -20,22 +20,47 @@
  * for more details.                                                         *
  ****************************************************************************/
 
-#ifndef VCL_RENDER_INTERFACES_PICKABLE_OBJECT_I_H
-#define VCL_RENDER_INTERFACES_PICKABLE_OBJECT_I_H
+#ifndef VCL_EXT_BGFX_SHADER_PROGRAMS_PICKING_SHADER_PROGRAM_H
+#define VCL_EXT_BGFX_SHADER_PROGRAMS_PICKING_SHADER_PROGRAM_H
 
-#include "drawable_object_i.h"
-#include "picking_shader_program_i.h"
+#include <vclib/render/interfaces/picking_shader_program_i.h>
 
-namespace vcl {
+#include "load_program.h"
 
-class PickableObjectI : public DrawableObjectI
+namespace vcl::bgf {
+
+class PickingShaderProgram : public PickingShaderProgramI
 {
-public:
-    virtual void setPickingShaderPorgram(const PickingShaderProgramI& ) {};
+    bgfx::ProgramHandle p = BGFX_INVALID_HANDLE;
 
-    virtual void drawWithNames(uint viewId = 0) = 0;
+public:
+    PickingShaderProgram()
+    {
+        p = vcl::bgf::loadProgram(
+            "vclib/ext/bgfx/pickable_object/vs_pickable_object",
+            "vclib/ext/bgfx/pickable_object/fs_pickable_object");
+    }
+
+    PickingShaderProgram(const std::string& vs, const std::string& fs)
+    {
+        p = loadProgram(vs, fs);
+    };
+
+    ~PickingShaderProgram()
+    {
+        if (bgfx::isValid(p)) {
+            bgfx::destroy(p);
+        }
+    };
+
+    PickingShaderProgram(const PickingShaderProgram&) = delete;
+
+    PickingShaderProgram& operator=(const PickingShaderProgram&) =
+        delete;
+
+    bgfx::ProgramHandle program() const { return p; };
 };
 
-} // namespace vcl
+} // namespace vcl::bgf
 
-#endif // VCL_RENDER_INTERFACES_PICKABLE_OBJECT_I_H
+#endif // VCL_EXT_BGFX_SHADER_PROGRAMS_PICKING_SHADER_PROGRAM_H

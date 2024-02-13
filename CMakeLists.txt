@@ -84,6 +84,7 @@ if (TARGET vclib-external-bgfx)
         include/vclib/ext/bgfx/shader_programs/drawable_axis_shader_program.h
         include/vclib/ext/bgfx/shader_programs/drawable_mesh_shader_program.h
         include/vclib/ext/bgfx/shader_programs/load_program.h
+        include/vclib/ext/bgfx/shader_programs/picking_shader_program.h
         include/vclib/ext/bgfx/uniforms/camera_uniforms.h
         include/vclib/ext/bgfx/uniforms/common.h
         include/vclib/ext/bgfx/uniforms/directional_light_uniforms.h
@@ -111,6 +112,10 @@ if (TARGET vclib-external-bgfx)
         shaders/vclib/ext/bgfx/drawable_mesh/varying.def.sc
         shaders/vclib/ext/bgfx/drawable_mesh/vs_drawable_mesh.sc
         shaders/vclib/ext/bgfx/drawable_mesh/uniforms.sh
+        shaders/vclib/ext/bgfx/pickable_object/fs_pickable_object.sc
+        shaders/vclib/ext/bgfx/pickable_object/varying.def.sc
+        shaders/vclib/ext/bgfx/pickable_object/vs_pickable_object.sc
+        shaders/vclib/ext/bgfx/pickable_object/uniforms.sh
         shaders/vclib/ext/bgfx/uniforms/camera_uniforms.sh
         shaders/vclib/ext/bgfx/uniforms/directional_light_uniforms.sh
         shaders/vclib/ext/bgfx/uniforms/drawable_axis_uniforms.sh
