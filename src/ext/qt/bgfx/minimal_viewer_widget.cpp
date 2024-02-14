@@ -130,6 +130,18 @@ void MinimalViewerWidget::onMouseRelease(MouseButton::Enum button)
     MV::releaseMouse(button);
 }
 
+
+void MinimalViewerWidget::onMouseDoubleClick(
+    MouseButton::Enum button,
+    double            x,
+    double            y)
+{
+    if (button == MouseButton::LEFT) {
+        uint res = pick(x, y);
+        std::cerr << "Picked " << res << std::endl;
+    }
+}
+
 void MinimalViewerWidget::onMouseScroll(double dx, double dy)
 {
     const int WHEEL_STEP = 120;

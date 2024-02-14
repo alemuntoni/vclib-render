@@ -168,6 +168,9 @@ uint MinimalViewer::pick(int x, int y)
 
     DTB::moveMouse(x, y);
 
+    // clear
+    bgfx::setViewClear(RENDER_PASS_ID, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0xff0000ff, 1.0f, 0);
+
     bgfx::setViewFrameBuffer(RENDER_PASS_ID, pickingFB);
 
     bgfx::setViewRect(RENDER_PASS_ID, 0, 0, 8, 8);
@@ -179,7 +182,7 @@ uint MinimalViewer::pick(int x, int y)
         if (dynamic_cast<PickableObjectI*>(pickable)) {
             pickObjectIdUniforms.updateObjectId(i);
             pickObjectIdUniforms.bind();
-            pickable->drawWithNames();
+            pickable->drawWithNames(RENDER_PASS_ID);
         }
     }
 
@@ -188,7 +191,20 @@ uint MinimalViewer::pick(int x, int y)
 
     Array2<uint32_t> data;
     data.resize(8, 8);
-    bgfx::readTexture(blitTex, data.data());
+    uint frt = bgfx::readTexture(blitTex, data.data());
+
+    while (bgfx::frame() != frt) {
+    }
+
+    for (uint32_t i = 0; i < data.rows(); i++) {
+        for (uint32_t j = 0; j < data.cols(); j++) {
+            uint32_t id = data(j, i);
+            if (id != 0) {
+                pickedObject = id;
+                break;
+            }
+        }
+    }
 
     Context::releaseViewId(RENDER_PASS_BLIT);
     Context::releaseViewId(RENDER_PASS_ID);

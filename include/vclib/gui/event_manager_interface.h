@@ -80,6 +80,12 @@ public:
     virtual void onMouseRelease(MouseButton::Enum button) {};
 
     /**
+     * @brief Called when a mouse button is double-clicked.
+     * @param[in] button: The button that was double-clicked.
+     */
+    virtual void onMouseDoubleClick(MouseButton::Enum button, double x, double y) {};
+
+    /**
      * @brief Called when the mouse wheel is scrolled.
      * @param[in] dx: The horizontal scroll amount.
      * @param[in] dy: The vertical scroll amount.

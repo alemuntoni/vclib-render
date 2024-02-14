@@ -158,6 +158,13 @@ void CanvasWidget::mouseReleaseEvent(QMouseEvent* event)
     QWidget::mouseReleaseEvent(event);
 }
 
+void CanvasWidget::mouseDoubleClickEvent(QMouseEvent* event)
+{
+    onMouseMove(event->pos().x(), event->pos().y());
+    onMouseDoubleClick(vcl::qt::fromQt(event->button()), event->pos().x(), event->pos().y());
+    QWidget::mouseDoubleClickEvent(event);
+}
+
 void CanvasWidget::wheelEvent(QWheelEvent* event)
 {
     onMouseScroll(event->angleDelta().x(), event->angleDelta().y());

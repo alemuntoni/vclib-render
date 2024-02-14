@@ -79,6 +79,8 @@ private:
 
     void mouseReleaseEvent(QMouseEvent* event) override;
 
+    void mouseDoubleClickEvent(QMouseEvent* event) override;
+
     void wheelEvent(QWheelEvent* event) override;
 
     void paint();

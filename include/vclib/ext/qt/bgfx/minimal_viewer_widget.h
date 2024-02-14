@@ -69,6 +69,8 @@ public:
 
     void onMouseRelease(MouseButton::Enum button) override;
 
+    void onMouseDoubleClick(MouseButton::Enum button, double x, double y) override;
+
     void onMouseScroll(double dx, double dy) override;
 };
 
